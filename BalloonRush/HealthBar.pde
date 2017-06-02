@@ -14,5 +14,4 @@ class HealthBar{
   int getCurrentHealth(){
     return currentHealth;
   }
-  
 }

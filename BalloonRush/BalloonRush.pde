@@ -1,7 +1,8 @@
-PImage currentTower, titleScreen, desktopMap1, desktopMap2, jungleMap1, donut, dartMonkey, ninjaMonkey, superMonkey, bombTower, freezeTower, sniperMonkey, boomerangMonkey, magicMonkey, pineapple, roadSpike;
+PImage currentPic, titleScreen, desktopMap1, desktopMap2, jungleMap1, donut, dartMonkey, ninjaMonkey, superMonkey, bombTower, freezeTower, sniperMonkey, boomerangMonkey, magicMonkey, pineapple, roadSpike;
 ArrayList<Balloon> balloons;
 ArrayList<Tower> towers;
 ArrayList<Projectile> projectiles;
+Tower currentTower;
 boolean dartMonkeyOver, ninjaMonkeyOver, superMonkeyOver, bombTowerOver, freezeTowerOver, sniperMonkeyOver, boomerangMonkeyOver, magicMonkeyOver, pineappleOver, roadSpikeOver = false;
 color rectHighlight;
 int currency;
@@ -15,31 +16,36 @@ void setup(){
 }
 
 void draw(){
+  addLayout();
   updateScreen();
   update(mouseX, mouseY);
-  //addLayout();
   textBox();
-  currency+=0;
+  currency+=10;
   if(currentTower != null){
-    image(currentTower, mouseX-37.5, mouseY-37.5, 75, 75);
+    image(currentTower.getPic(), mouseX-37.5, mouseY-37.5, 75, 75);
   }
   println(frameRate);
 }
 
 void mouseClicked(){
   if(currentTower != null){
-    currentTower = null;
+    if(currency >= currentTower.getCost()){
+      currentTower.setPosition(mouseX, mouseY);
+      towers.add(currentTower);
+      currency -= currentTower.getCost();
+      currentTower = null;
+    }
   }else if(dartMonkeyOver){
-    currentTower = dartMonkey;
+    currentTower = new DartMonkey();
   }else if(bombTowerOver){
-    currentTower = bombTower;
+    currentPic = bombTower;
   }else if(ninjaMonkeyOver){
-    currentTower = ninjaMonkey;
+    currentPic = ninjaMonkey;
   }
 }
 
 void loadImages(){
-  //currentTower = loadImage("Images/DartMonkey.png");
+  //currentPic = loadImage("Images/DartMonkey.png");
   desktopMap1 = loadImage("Images/Desktop1.jpg");
   desktopMap2 = loadImage("Images/Desktop2.jpeg");
   jungleMap1 = loadImage("Images/JungleMap.jpg");
@@ -63,8 +69,8 @@ void initialize(){
 }
 
 void addLayout(){
-  image(desktopMap1, 0, 0, width, height);
-  image(donut, 900, 200, 300, 300);
+  image(desktopMap2, 0, 0, width, height);
+  //image(donut, 900, 200, 300, 300);
   fill(255, 50);
   rect(0, 0, 200, 900);
   rect(0, height-600, 100, 100); image(dartMonkey, 12.5, height-587.5, 75, 75);

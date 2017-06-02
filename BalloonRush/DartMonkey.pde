@@ -1,12 +1,13 @@
 class DartMonkey extends Tower{
   
-  private float velocity, cost, currentX, currentY;
+  private float atkSpeed,  currentX, currentY;
+  private int w = 75, h = 75, cost;
   private Projectile ammunition;
-  private PImage pic;
+  private PImage pic = loadImage("Images/Dart_Monkey.png");;
   
-  DartMonkey(float v, float c){
-    velocity = v;
-    cost = c;
+  DartMonkey(){
+    atkSpeed = 1;
+    cost = 500;
   }
   
   void shoot(){
@@ -15,6 +16,15 @@ class DartMonkey extends Tower{
   
   void die(){
       
+  }
+  
+  void setPosition(float x, float y){
+    currentX = x;
+    currentY = y;
+  }
+  
+  int getCost(){
+    return cost;
   }
   
   PImage getPic(){
@@ -30,10 +40,10 @@ class DartMonkey extends Tower{
   }
   
   float getWidth(){
-    return width;
+    return w;
   }
   
   float getHeight(){
-    return height;
+    return h;
   }
 }

@@ -1,8 +1,9 @@
 abstract class Tower{
    
-  private int cost;
+  private int w, h, cost;
   private float atkSpeed, currentX, currentY;
   private Projectile ammunition;
+  private PImage pic;
   
   abstract void shoot();
   abstract void die();
@@ -13,9 +14,19 @@ abstract class Tower{
   int getCost(){
     return cost;
   }
-  abstract PImage getPic();
-  abstract float getX();
-  abstract float getY();
-  abstract float getWidth();
-  abstract float getHeight();
+  PImage getPic(){
+    return pic;
+  }
+  float getX(){
+    return currentX;
+  }
+  float getY(){
+    return currentY;
+  }
+  int getWidth(){
+    return w;
+  }
+  int getHeight(){
+    return h;
+  }
 }

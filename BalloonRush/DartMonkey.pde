@@ -39,11 +39,11 @@ class DartMonkey extends Tower{
     return currentY;
   }
   
-  float getWidth(){
+  int getWidth(){
     return w;
   }
   
-  float getHeight(){
+  int getHeight(){
     return h;
   }
 }

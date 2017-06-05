@@ -2,8 +2,16 @@ class Map{
   
   private PImage map;
   private int row, col;
-  private PImage[][] grid;
+  private Tile[][] grid;
   
+  void addTower(int r, int c, Tower t) {
+    grid[r][c].setTower(t);
+  }
+  
+  Tower removeTower(int r, int c) {
+    return grid[r][c].removeTower();
+  }
+ /*
   Map(int index){
     if(index == 0){
       map = loadImage("Images/Desktop1.jpg");
@@ -22,5 +30,5 @@ class Map{
       col = 50;
     }
   }
-  
+  */
 }

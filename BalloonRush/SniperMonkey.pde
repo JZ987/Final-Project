@@ -1,7 +1,7 @@
 class SniperMonkey extends Tower{
   
   private float atkSpeed,  currentX, currentY;
-  private int w = 55, h = 90, cost;
+  private int w = 30, h = 50, range = 0, cost;
   private Projectile ammunition;
   private PImage pic = loadImage("Images/Sniper_Monkey.png");;
   
@@ -45,5 +45,9 @@ class SniperMonkey extends Tower{
   
   int getHeight(){
     return h;
+  }
+  
+  int getRange(){
+    return range;
   }
 }

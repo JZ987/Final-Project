@@ -1,7 +1,7 @@
 class BombTower extends Tower{
   
   private float atkSpeed, currentX, currentY;
-  private int w = 60, h = 75, cost;
+  private int w = 40, h = 50, range = 10, cost;
   private Projectile ammunition;
   private PImage pic = loadImage("Images/Bomb_Tower.png");
   
@@ -45,5 +45,9 @@ class BombTower extends Tower{
   
   int getHeight(){
     return h;
+  }
+  
+  int getRange(){
+    return range;
   }
 }

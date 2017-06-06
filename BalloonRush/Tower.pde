@@ -1,6 +1,6 @@
 abstract class Tower{
    
-  private int w, h, cost;
+  private int w, h, cost, range;
   private float atkSpeed, currentX, currentY;
   private Projectile ammunition;
   private PImage pic;
@@ -28,5 +28,8 @@ abstract class Tower{
   }
   int getHeight(){
     return h;
+  }
+  int getRange(){
+    return range;
   }
 }

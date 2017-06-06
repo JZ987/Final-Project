@@ -1,7 +1,7 @@
 class DartMonkey extends Tower{
   
-  private float atkSpeed,  currentX, currentY;
-  private int w = 75, h = 75, cost;
+  private float atkSpeed, currentX, currentY;
+  private int w = 50, h = 50, range = 15, cost;
   private Projectile ammunition;
   private PImage pic = loadImage("Images/Dart_Monkey.png");;
   
@@ -45,5 +45,9 @@ class DartMonkey extends Tower{
   
   int getHeight(){
     return h;
+  }
+  
+  int getRange(){
+    return range;
   }
 }

@@ -4,6 +4,12 @@ class Map{
   private int row, col;
   private Tile[][] grid;
   
+  Map(){
+    row = height/50;
+    col = (width-150)/50;
+    grid = new Tile[row][col];
+  }
+  
   void addTower(int r, int c, Tower t) {
     grid[r][c].setTower(t);
   }
@@ -11,6 +17,20 @@ class Map{
   Tower removeTower(int r, int c) {
     return grid[r][c].removeTower();
   }
+  
+  Tower getTower(int r, int c){
+    return grid[r][c].getTower();
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
  /*
   Map(int index){
     if(index == 0){

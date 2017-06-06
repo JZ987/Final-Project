@@ -5,6 +5,7 @@ ArrayList<Tower> towers;
 ArrayList<Projectile> projectiles;
 Tower currentTower;
 int currency;
+Map currentMap;
 
 void setup(){
   size(1500, 900);
@@ -20,15 +21,18 @@ void draw(){
   textBox();
   currency+=10;
   if(currentTower != null){
-    image(currentTower.getPic(), mouseX-37.5, mouseY-37.5, 75, 75);
+    fill(0, 100);
+    ellipse(mouseX, mouseY, currentTower.getRange(), currentTower.getRange());
+    image(currentTower.getPic(), (50-currentTower.getWidth())/2 + mouseX-25, mouseY-25, currentTower.getWidth(), currentTower.getHeight());
+    noFill();
   }
-  println(frameRate);
+  //println(frameRate);
 }
 
 void mouseClicked(){
   if(currentTower != null){
     if(currency >= currentTower.getCost()){
-      currentTower.setPosition(mouseX, mouseY);
+      currentTower.setPosition(((int)mouseX/50)*50, ((int)mouseY/50)*50);
       towers.add(currentTower);
       currency -= currentTower.getCost();
       currentTower = null;
@@ -45,6 +49,8 @@ void mouseClicked(){
     currentTower = new SniperMonkey();
   }else if(superMonkeyOver){
     currentTower = new SuperMonkey();
+  }else{
+    balloons.add(new Balloon(1, 1));
   }
 }
 
@@ -66,30 +72,34 @@ void loadImages(){
 }
 
 void initialize(){
+  currentMap = new Map();
   balloons = new ArrayList<Balloon>();
   towers = new ArrayList<Tower>();
   projectiles = new ArrayList<Projectile>();
-  currency = 0;
+  currency = 1000;
 }
 
 void addLayout(){
-  image(desktopMap2, 0, 0, width, height);
+  //image(desktopMap2, 0, 0, width, height);
+  fill(255);
+  rect(0, 0, width, height);
   stroke(126);
   for(float i = 0; i < height; i+=50){
-    line(200, i, width, i);
+    line(150, i, width, i);
   }
-  for(float i = 200; i < width; i+= 50){
+  for(float i = 150; i < width; i+= 50){
     line(i, 0, i, height);
   }
   //image(donut, 900, 200, 300, 300);
   fill(255, 50);
-  rect(0, 0, 200, 900);
-  rect(0, height-600, 100, 100); image(dartMonkey, 12.5, height-587.5, 75, 75);
-  rect(0, height-500, 100, 100); image(bombTower, 20, height-487.5, 60, 75);
-  rect(0, height-400, 100, 100); image(ninjaMonkey, 12.5, height-387.5, 75, 75);
-  rect(0, height-300, 100, 100); image(freezeTower, 15, height-287.5, 70, 75);
-  rect(0, height-200, 100, 100); image(sniperMonkey, 22.5, height-195, 55, 90);
-  rect(0, height-100, 100, 100); image(superMonkey, 12.5, height-87.5, 75, 75);
+  rect(0, 0, 150, 900);
+  rect(37.5, height-600, 75, 75); image(dartMonkey, 50, height-587.5, 50, 50);
+  rect(37.5, height-500, 75, 75); image(bombTower, 55, height-487.5, 40, 50);
+  rect(37.5, height-400, 75, 75); image(ninjaMonkey, 50, height-387.5, 50, 50);
+  rect(37.5, height-300, 75, 75); image(freezeTower, 51.5, height-287.5, 47, 50);
+  rect(37.5, height-200, 75, 75); image(sniperMonkey, 60, height-190, 30, 50);
+  rect(37.5, height-100, 75, 75); image(superMonkey, 50, height-87.5, 50, 50);
+  noFill();
   //fill(0, 150);
   //image(boomerangMonkey, 120, height-595, 60, 90); rect(100, height-600, 100, 100); 
   //image(magicMonkey, 112.5, height-487.5, 75, 75); rect(100, height-500, 100, 100); 
@@ -98,16 +108,6 @@ void addLayout(){
   //fill(255, 10);
   //rect(100, height-200, 100, 100); image(pineapple, 117.5, height-195, 65, 90);
   //rect(100, height-100, 100, 100); image(roadSpike, 110, height-87.5, 80, 75);
-}
-
-void updateScreen(){
-  updateGold();
-  for(Tower t : towers){
-    image(t.getPic(), t.getX(), t.getY(), t.getWidth(), t.getHeight()); 
-  }
-  for(Projectile p : projectiles){
-    image(p.getPic(), p.getX(), p.getY(), p.getWidth(), p.getHeight());
-  }
 }
 
 void update(int x, int y) {
@@ -123,14 +123,29 @@ void update(int x, int y) {
   roadSpikeOver = isOverObject(100, height-100, 100);
 }
 
+void updateScreen(){
+    updateGold();
+    for(Tower t : towers){
+      //println("row : " + t.getX() + "col : " + t.getY());
+      image(t.getPic(), (50 - t.getWidth())/2 + t.getX(), t.getY(), t.getWidth(), t.getHeight()); 
+    }
+    for(Projectile p : projectiles){
+      image(p.getPic(), p.getX(), p.getY(), p.getWidth(), p.getHeight());
+    }
+    for(Balloon b : balloons){
+      image(b.getPic(), b.getX(), b.getY(), b.getWidth(), b.getHeight());
+      b.setX(random(-10, 10));
+      b.setY(random(-10, 10));
+    }
+}
+
 void textBox(){
   if(dartMonkeyOver||ninjaMonkeyOver||superMonkeyOver||bombTowerOver||freezeTowerOver||sniperMonkeyOver||boomerangMonkeyOver||magicMonkeyOver||pineappleOver||roadSpikeOver){
     fill(255);
     rect(mouseX, mouseY, 400, -200);
     fill(0);
     textSize(30);
-    String display = overWhich();
-    text(display, mouseX+200, mouseY-170);
+    text(overWhich(), mouseX+200, mouseY-170);
   }
 }
 
@@ -145,7 +160,8 @@ void updateGold(){
   textSize(30);
   fill(238,255,8);
   textAlign(CENTER);
-  text(currency, 100, 50);
+  text(currency, 75, 50);
+  noFill();
 }
 
 String overWhich(){

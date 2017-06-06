@@ -1,7 +1,7 @@
 class FreezeTower extends Tower{
   
   private float atkSpeed,  currentX, currentY;
-  private int w = 70, h = 75, cost;
+  private int w = 47, h = 50, range = 10, cost;
   private Projectile ammunition;
   private PImage pic = loadImage("Images/Ice_Tower.png");;
   
@@ -45,5 +45,9 @@ class FreezeTower extends Tower{
   
   int getHeight(){
     return h;
+  }
+  
+  int getRange(){
+    return range;
   }
 }

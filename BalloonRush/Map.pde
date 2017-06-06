@@ -1,8 +1,15 @@
 class Map{
   
   private PImage map;
-  private int row, col;
+  private int rows, cols;
   private Tile[][] grid;
+  
+  Map(String m, int r, int c) {
+    map = loadImage(m);
+    rows = r;
+    cols = c;
+    grid = new Tile[r][c];
+  }
   
   void addTower(int r, int c, Tower t) {
     grid[r][c].setTower(t);

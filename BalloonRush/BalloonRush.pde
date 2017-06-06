@@ -1,4 +1,3 @@
-PImage currentPic, titleScreen, desktopMap1, desktopMap2, jungleMap1, donut, dartMonkey, ninjaMonkey, superMonkey, bombTower, freezeTower, sniperMonkey, boomerangMonkey, magicMonkey, pineapple, roadSpike;
 boolean dartMonkeyOver, ninjaMonkeyOver, superMonkeyOver, bombTowerOver, freezeTowerOver, sniperMonkeyOver, boomerangMonkeyOver, magicMonkeyOver, pineappleOver, roadSpikeOver = false;
 ArrayList<Balloon> balloons;
 ArrayList<Tower> towers;
@@ -49,20 +48,7 @@ void mouseClicked(){
 }
 
 void loadImages(){
-  desktopMap1 = loadImage("Images/Desktop1.jpg");
-  desktopMap2 = loadImage("Images/Desktop2.jpeg");
-  jungleMap1 = loadImage("Images/JungleMap.jpg");
-  dartMonkey = loadImage("Images/Dart_Monkey.png");
-  ninjaMonkey = loadImage("Images/Ninja_Monkey.png");
-  superMonkey = loadImage("Images/Super_Monkey.png");
-  bombTower = loadImage("Images/Bomb_Tower.png");
-  freezeTower = loadImage("Images/Ice_Tower.png");
-  sniperMonkey = loadImage("Images/Sniper_Monkey.png");
-  boomerangMonkey = loadImage("Images/Boomerang_Thrower.png");
-  magicMonkey = loadImage("Images/Monkey_Apprentice.png");
-  pineapple = loadImage("Images/Exploding_Pineapple.png");
-  roadSpike = loadImage("Images/Road_Spikes.png");
-  donut = loadImage("Images/DonutFull.jpg");
+
 }
 
 void initialize(){

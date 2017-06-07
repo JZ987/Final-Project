@@ -21,11 +21,11 @@ abstract class Tower{
     xcor = x;
     ycor = y;
   }
+  PImage getPic() {
+    return pic;
+  }
   int getCost(){
     return cost;
-  }
-  PImage getPic(){
-    return pic;
   }
   float getX(){
     return xcor;

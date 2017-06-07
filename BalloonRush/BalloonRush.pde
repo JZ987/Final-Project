@@ -3,11 +3,12 @@ ArrayList<Balloon> balloons;
 ArrayList<Tower> towers;
 ArrayList<Projectile> projectiles;
 Tower currentTower;
+Map currentMap;
 int currency;
 
 void setup(){
   size(1500, 900);
-  loadImages();
+  currentMap = new DesktopMap2();
   initialize();
   addLayout();
 }
@@ -47,10 +48,6 @@ void mouseClicked(){
   }
 }
 
-void loadImages(){
-
-}
-
 void initialize(){
   balloons = new ArrayList<Balloon>();
   towers = new ArrayList<Tower>();
@@ -59,7 +56,7 @@ void initialize(){
 }
 
 void addLayout(){
-  image(desktopMap2, 0, 0, width, height);
+  image(currentMap.getImage(), 0, 0, width, height);
   stroke(126);
   for(float i = 0; i < height; i+=50){
     line(200, i, width, i);
@@ -70,12 +67,12 @@ void addLayout(){
   //image(donut, 900, 200, 300, 300);
   fill(255, 50);
   rect(0, 0, 200, 900);
-  rect(0, height-600, 100, 100); image(dartMonkey, 12.5, height-587.5, 75, 75);
-  rect(0, height-500, 100, 100); image(bombTower, 20, height-487.5, 60, 75);
-  rect(0, height-400, 100, 100); image(ninjaMonkey, 12.5, height-387.5, 75, 75);
-  rect(0, height-300, 100, 100); image(freezeTower, 15, height-287.5, 70, 75);
-  rect(0, height-200, 100, 100); image(sniperMonkey, 22.5, height-195, 55, 90);
-  rect(0, height-100, 100, 100); image(superMonkey, 12.5, height-87.5, 75, 75);
+  rect(0, height-600, 100, 100); image(loadImage(DartMonkey.image), 12.5, height-587.5, 75, 75);
+  rect(0, height-500, 100, 100); image(loadImage(BombTower.image), 20, height-487.5, 60, 75);
+  rect(0, height-400, 100, 100); image(loadImage(NinjaMonkey.image), 12.5, height-387.5, 75, 75);
+  rect(0, height-300, 100, 100); image(loadImage(FreezeTower.image), 15, height-287.5, 70, 75);
+  rect(0, height-200, 100, 100); image(loadImage(SniperMonkey.image), 22.5, height-195, 55, 90);
+  rect(0, height-100, 100, 100); image(loadImage(SuperMonkey.image), 12.5, height-87.5, 75, 75);
   //fill(0, 150);
   //image(boomerangMonkey, 120, height-595, 60, 90); rect(100, height-600, 100, 100); 
   //image(magicMonkey, 112.5, height-487.5, 75, 75); rect(100, height-500, 100, 100); 

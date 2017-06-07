@@ -1,4 +1,4 @@
-class Map{
+abstract class Map{
   
   private PImage map;
   private int rows, cols;
@@ -18,6 +18,12 @@ class Map{
   Tower removeTower(int r, int c) {
     return grid[r][c].removeTower();
   }
+  
+  PImage getImage() {
+    return map;
+  }
+  
+  abstract void display();
  /*
   Map(int index){
     if(index == 0){

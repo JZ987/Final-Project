@@ -1,13 +1,16 @@
 class SuperMonkey extends Tower{
   
   private float atkSpeed,  currentX, currentY;
-  private int w = 50, h = 50, range = 100, cost;
+  private int w, h, range, cost;
   private Projectile ammunition;
-  private PImage pic = loadImage("Images/Super_Monkey.png");;
+  private PImage superMonkey;
   
   SuperMonkey(){
     atkSpeed = 3;
     cost = 3200;
+    w = h = 50;
+    range = 650;
+    superMonkey = loadImage("Images/Super_Monkey.png");
   }
   
   void shoot(){
@@ -28,7 +31,7 @@ class SuperMonkey extends Tower{
   }
   
   PImage getPic(){
-    return pic;
+    return superMonkey;
   }
   
   float getX(){

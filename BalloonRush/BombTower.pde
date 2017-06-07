@@ -1,13 +1,17 @@
 class BombTower extends Tower{
   
   private float atkSpeed, currentX, currentY;
-  private int w = 40, h = 50, range = 10, cost;
+  private int w, h, range, cost;
   private Projectile ammunition;
-  private PImage pic = loadImage("Images/Bomb_Tower.png");
+  private PImage bombTower;
   
   BombTower(){
     atkSpeed = 0.75;
     cost = 1600;
+    w = 40;
+    h = 50;
+    range = 200;
+    bombTower = loadImage("Images/Bomb_Tower.png");
   }
   
   void shoot(){
@@ -28,7 +32,7 @@ class BombTower extends Tower{
   }
   
   PImage getPic(){
-    return pic;
+    return bombTower;
   }
   
   float getX(){

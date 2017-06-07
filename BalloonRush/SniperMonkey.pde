@@ -1,57 +1,15 @@
 class SniperMonkey extends Tower{
-  
-  private float atkSpeed,  currentX, currentY;
-  private int w, h, range, cost;
-  private Projectile ammunition;
-  private PImage sniperMonkey;
+
+  public static final String image = "Images/Sniper_Monkey.png";
   
   SniperMonkey(){
-    atkSpeed = 0.75;
-    cost = 1200;
-    w = 30;
-    h = 50;
-    range = 0;
-    sniperMonkey = loadImage("Images/Sniper_Monkey.png");
+    // int w, int h, int cost, float atkSpeed, float range, Projectile ammo, String m
+    super(30, 50, 1200, 0.75, 0, new Projectile(0), image);
   }
   
   void shoot(){
-    
   }
   
   void die(){
-      
-  }
-  
-  void setPosition(float x, float y){
-    currentX = x;
-    currentY = y;
-  }
-  
-  int getCost(){
-    return cost;
-  }
-  
-  PImage getPic(){
-    return sniperMonkey;
-  }
-  
-  float getX(){
-    return currentX;
-  }
-  
-  float getY(){
-    return currentY;
-  }
-  
-  int getWidth(){
-    return w;
-  }
-  
-  int getHeight(){
-    return h;
-  }
-  
-  int getRange(){
-    return range;
   }
 }

@@ -1,7 +1,7 @@
-class Map{
+abstract class Map{
   
   private PImage map;
-  private int row, col;
+  private int rows, cols;
   private Tile[][] grid;
   
   Map(){
@@ -9,6 +9,14 @@ class Map{
     col = (width-150)/50;
     grid = new Tile[row][col];
   }
+ /* 
+  Map(String m, int r, int c) {
+    map = loadImage(m);
+    rows = r;
+    cols = c;
+    grid = new Tile[r][c];
+  }
+  */
   
   void addTower(int r, int c, Tower t) {
     grid[r][c].setTower(t);
@@ -17,20 +25,16 @@ class Map{
   Tower removeTower(int r, int c) {
     return grid[r][c].removeTower();
   }
-  
+
   Tower getTower(int r, int c){
     return grid[r][c].getTower();
   }
+
+  PImage getImage() {
+    return map;
+  }
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  abstract void display();
  /*
   Map(int index){
     if(index == 0){

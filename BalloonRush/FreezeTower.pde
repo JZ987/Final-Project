@@ -5,11 +5,7 @@ class FreezeTower extends Tower{
   //private PImage pic;
   
   FreezeTower(){
-    super(BalloonRush.freezeTower, 47, 50, 2500, 150, 1, 0, 0);
-  }
-  
-  void shoot(){
-    
+    super(BalloonRush.freezeTower, 47, 50, 2500, 150, 1);
   }
   
   void die(){

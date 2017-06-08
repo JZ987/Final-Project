@@ -5,10 +5,7 @@ class SuperMonkey extends Tower{
   //private PImage superMonkey;
   
   SuperMonkey(){    
-    super(BalloonRush.superMonkey, 50, 50, 3200, 650, 3, 0, 0);
-  }
-  
-  void shoot(){
+    super(BalloonRush.superMonkey, 50, 50, 3200, 650, 20);
   }
   
   void die(){

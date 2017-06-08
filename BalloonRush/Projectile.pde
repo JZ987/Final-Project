@@ -1,30 +1,50 @@
 class Projectile{
   
-  private float velocity, currentX, currentY;
-  private int dx, dy, w, h;
-  private PImage pic;
+  PImage pic;
+  PVector startingPos, currentPos, velocity, target;
+  int range;
   
-  Projectile(float v){
-    velocity = v;
+  Projectile(Tower t, PVector target){
+    startingPos = new PVector(t.position.x, t.position.y);
+    currentPos = new PVector(startingPos.x, startingPos.y);
+    this.target = target;
+    this.target.mult(0.1);
+    range = t.range;
+    pic = BalloonRush.donut;
   }
   
-  PImage getPic(){
-    return pic;
+  void display(){
+    fill(0, 50);
+    ellipse(currentPos.x, currentPos.y, 15, 15);
+    noFill();
   }
   
-  float getX(){
-    return currentX + dx;
+  void update(){
+    checkCollision();
+    currentPos.add(target);
   }
   
-  float getY(){
-    return currentY + dy;
+  boolean checkCollision(){
+    for(Balloon b : BalloonRush.balloons){
+      PVector distanceVect = PVector.sub(b.position, currentPos);
+      float minDistance = distanceVect.mag();
+      if(minDistance < 25){
+        b.health -= 1;
+        BalloonRush.currency++;
+        return true;
+      }
+    }
+    return false;
   }
   
-  int getWidth(){
-    return w;
+  boolean shouldDie(){
+    PVector distanceStart = PVector.sub(currentPos, startingPos);
+    PVector distanceTarget = PVector.sub(currentPos, target);
+    float distanceToStart = distanceStart.mag();
+    float distanceToTarget = distanceTarget.mag();
+    if(distanceToStart > range || checkCollision()){
+      return true;
+    }
+    return false;
   }
-  
-  int getHeight(){
-    return h;
-  }  
 }

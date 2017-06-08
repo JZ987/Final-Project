@@ -5,10 +5,7 @@ class NinjaMonkey extends Tower{
   //private PImage ninjaMonkey;
   
   NinjaMonkey(){    
-    super(BalloonRush.ninjaMonkey, 50, 50, 2000, 400, 1.5, 0, 0);
-  }
-  
-  void shoot(){
+    super(BalloonRush.ninjaMonkey, 50, 50, 2000, 400, 1.5);
   }
   
   void die(){

@@ -5,11 +5,9 @@ class DartMonkey extends Tower{
   //private PImage pic;
   
   DartMonkey(){
-    super(BalloonRush.dartMonkey, 50, 50, 500, 300, 1, 0, 0);
+    super(BalloonRush.dartMonkey, 50, 50, 500, 300, 1);
   }
   
-  void shoot(){
-  }
 
   void die(){
     

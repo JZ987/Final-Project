@@ -1,44 +1,44 @@
-
 static PImage currentPic, titleScreen, desktopMap1, desktopMap2, jungleMap1, donut, dartMonkey, ninjaMonkey, superMonkey, bombTower, freezeTower, sniperMonkey, redBloon, blueBloon, greenBloon, yellowBloon, pinkBloon, rainbowBloon, ceramicBloon;
 boolean dartMonkeyOver, ninjaMonkeyOver, superMonkeyOver, bombTowerOver, freezeTowerOver, sniperMonkeyOver, boomerangMonkeyOver, magicMonkeyOver, pineappleOver, roadSpikeOver = false;
-ArrayList<Balloon> balloons;
-ArrayList<Tower> towers;
-ArrayList<Projectile> projectiles;
+static ArrayList<Balloon> balloons;
+static ArrayList<Tower> towers;
+static ArrayList<Projectile> projectiles;
 Tower currentTower;
 Map currentMap;
-int currency;
+static int currency;
+float angle;
 
 void setup(){
   size(1500, 900);
   loadImages();
   initialize();
   addLayout();
-  loadPixels();
+  this.loadPixels();
 }
 
 void draw(){
-  updatePixels();
+  this.updatePixels();
   updateScreen();
   update(mouseX, mouseY);
-  currency+=10;
+  //currency+=10;
   if(currentTower != null){
     fill(0, 100);
-    ellipse(mouseX, mouseY, currentTower.getRange(), currentTower.getRange());
-    image(currentTower.getPic(), (50-currentTower.getWidth())/2 + mouseX-25, mouseY-25, currentTower.getWidth(), currentTower.getHeight());
+    ellipse(mouseX, mouseY, currentTower.range*2, currentTower.range*2);
+    image(currentTower.pic, (50-currentTower.w)/2 + mouseX-25, mouseY-25, currentTower.w, currentTower.h);
     noFill();
   }
-  println(frameRate);
+  //println(frameRate);
 }
 
 void mousePressed(){
   if(currentTower != null){
     if(mouseX < 150){
       currentTower = null;
-    }else if(currency >= currentTower.getCost()){
+    }else if(currency >= currentTower.cost){
       //currentMap.addTower((int)mouseX/50, (int)mouseY/50, currentTower);
       currentTower.setPosition(((int)mouseX/50)*50, ((int)mouseY/50)*50);
       towers.add(currentTower);
-      currency -= currentTower.getCost();
+      currency -= currentTower.cost;
       currentTower = null;
     }
   }else if(dartMonkeyOver){
@@ -54,11 +54,10 @@ void mousePressed(){
   }else if(superMonkeyOver){
     currentTower = new SuperMonkey();
   }else{
-    balloons.add(new Balloon((int)random(1, 5)));
+    balloons.add(new Balloon((int)random(1, 6)));
   }
 }
 
-//Convert png to svg
 void loadImages(){
   desktopMap1 = loadImage("Images/Desktop1.jpg");
   desktopMap2 = loadImage("Images/Desktop2.jpeg");
@@ -84,7 +83,7 @@ void initialize(){
   balloons = new ArrayList<Balloon>();
   towers = new ArrayList<Tower>();
   projectiles = new ArrayList<Projectile>();
-  currency = 1000;
+  currency = 3200;
 }
 
 void addLayout(){
@@ -93,7 +92,7 @@ void addLayout(){
   for(float i = 0; i < height; i+=50){
     line(150, i, width, i);
   }
-  for(float i = 150; i < width; i+= 50){
+  for(float i = 150; i < width; i+=50){
     line(i, 0, i, height);
   }
   fill(255, 50);
@@ -107,7 +106,7 @@ void addLayout(){
 }
 
 void updateScreen(){
-  //Update currency  
+  //Update currency
   textSize(30);
   fill(238,255,8);
   textAlign(CENTER);
@@ -116,20 +115,28 @@ void updateScreen(){
   
   //Update objects
   for(Tower t : towers){
+    t.update();
     t.display();
   }
-  for(Projectile p : projectiles){
-    image(p.getPic(), p.getX(), p.getY(), p.getWidth(), p.getHeight());
-  }
-  for(Balloon b : balloons){
-    if(b.getHealth() <= 0 || b.getX() > 1300){
-      b = null;
+  
+  for(int i = 0; i < projectiles.size(); i++){
+    if(projectiles.get(i).shouldDie()){
+      projectiles.remove(i);
+      i--;
     }else{
-      b.update();
-      b.display();
+      projectiles.get(i).update();
+      projectiles.get(i).display();
     }
-    //b.setX(b.getSpeed());
-    //b.setY(b.getSpeed());
+  }
+  
+  for(int i = 0; i < balloons.size(); i++){
+    if(balloons.get(i).shouldDie()){
+      balloons.remove(i);
+      i--;
+    }else{
+      balloons.get(i).update();
+      balloons.get(i).display();
+    }
   }
   
   //Update text boxes
@@ -194,3 +201,14 @@ PImage getPic(String name){
     return donut;
   }
 }
+
+/*
+void checkCollision(Object one, Object two){
+  PVector distanceVect = PVector.sub(other.position, this.position);
+  float distanceVectMag = distanceVect.mag();
+  //println(distanceVectMag);
+  float minDistance = this.range;
+  if(distanceVectMag < minDistance){
+    angle = distanceVect.heading() + PI/2;
+  }
+}*/

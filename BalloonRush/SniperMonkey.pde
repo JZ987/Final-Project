@@ -5,10 +5,7 @@ class SniperMonkey extends Tower{
   //private PImage sniperMonkey;
   
   SniperMonkey(){   
-    super(BalloonRush.sniperMonkey, 30, 50, 1200, 0, 075, 0, 0);
-  }
-  
-  void shoot(){
+    super(BalloonRush.sniperMonkey, 30, 50, 1200, 0, 0.75);
   }
   
   void die(){

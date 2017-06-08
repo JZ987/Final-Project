@@ -1,9 +1,13 @@
 class DesktopMap2 extends Map{
 
-  DesktopMap2() {
-    super("Images/Desktop2.jpg", 100, 100);
+  DesktopMap2(){
+    super(BalloonRush.desktopMap2, 100, 100);
   }
-    
-  void display() {
+  
+  PImage getImage(){
+    return BalloonRush.desktopMap2;
+  }
+  
+  void display(){
   }
 }

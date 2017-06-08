@@ -1,7 +1,7 @@
 abstract class Map{
   
   private PImage map;
-  private int rows, cols;
+  private int row, col;
   private Tile[][] grid;
   
   Map(){
@@ -9,14 +9,13 @@ abstract class Map{
     col = (width-150)/50;
     grid = new Tile[row][col];
   }
- /* 
-  Map(String m, int r, int c) {
-    map = loadImage(m);
-    rows = r;
-    cols = c;
+  
+  Map(PImage img, int r, int c) {
+    map = img;
+    row = r;
+    col = c;
     grid = new Tile[r][c];
   }
-  */
   
   void addTower(int r, int c, Tower t) {
     grid[r][c].setTower(t);

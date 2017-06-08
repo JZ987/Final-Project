@@ -1,7 +1,5 @@
-<<<<<<< Updated upstream
-=======
-static PImage currentPic, titleScreen, desktopMap1, desktopMap2, jungleMap1, donut, dartMonkey, ninjaMonkey, superMonkey, bombTower, freezeTower, sniperMonkey, redBloon, blueBloon, greenBloon, yellowBloon, pinkBloon, rainbowBloon, ceramicBloon;;
->>>>>>> Stashed changes
+
+static PImage currentPic, titleScreen, desktopMap1, desktopMap2, jungleMap1, donut, dartMonkey, ninjaMonkey, superMonkey, bombTower, freezeTower, sniperMonkey, redBloon, blueBloon, greenBloon, yellowBloon, pinkBloon, rainbowBloon, ceramicBloon;
 boolean dartMonkeyOver, ninjaMonkeyOver, superMonkeyOver, bombTowerOver, freezeTowerOver, sniperMonkeyOver, boomerangMonkeyOver, magicMonkeyOver, pineappleOver, roadSpikeOver = false;
 ArrayList<Balloon> balloons;
 ArrayList<Tower> towers;
@@ -12,7 +10,7 @@ int currency;
 
 void setup(){
   size(1500, 900);
-  currentMap = new DesktopMap2();
+  loadImages();
   initialize();
   addLayout();
   loadPixels();
@@ -60,9 +58,6 @@ void mousePressed(){
   }
 }
 
-<<<<<<< Updated upstream
-=======
-
 //Convert png to svg
 void loadImages(){
   desktopMap1 = loadImage("Images/Desktop1.jpg");
@@ -84,9 +79,8 @@ void loadImages(){
   ceramicBloon = loadImage("Images/Ceramic_Bloon_2.png");
 }
 
->>>>>>> Stashed changes
 void initialize(){
-  currentMap = new Map();
+  currentMap = new DesktopMap2();
   balloons = new ArrayList<Balloon>();
   towers = new ArrayList<Tower>();
   projectiles = new ArrayList<Projectile>();
@@ -94,7 +88,7 @@ void initialize(){
 }
 
 void addLayout(){
-  image(currentMap.getImage(), 0, 0, width, height);
+  image(desktopMap2, 0, 0, width, height);
   stroke(126);
   for(float i = 0; i < height; i+=50){
     line(150, i, width, i);
@@ -103,21 +97,13 @@ void addLayout(){
     line(i, 0, i, height);
   }
   fill(255, 50);
-  rect(0, 0, 200, 900);
-  rect(0, height-600, 100, 100); image(loadImage(DartMonkey.image), 12.5, height-587.5, 75, 75);
-  rect(0, height-500, 100, 100); image(loadImage(BombTower.image), 20, height-487.5, 60, 75);
-  rect(0, height-400, 100, 100); image(loadImage(NinjaMonkey.image), 12.5, height-387.5, 75, 75);
-  rect(0, height-300, 100, 100); image(loadImage(FreezeTower.image), 15, height-287.5, 70, 75);
-  rect(0, height-200, 100, 100); image(loadImage(SniperMonkey.image), 22.5, height-195, 55, 90);
-  rect(0, height-100, 100, 100); image(loadImage(SuperMonkey.image), 12.5, height-87.5, 75, 75);
-  //fill(0, 150);
-  //image(boomerangMonkey, 120, height-595, 60, 90); rect(100, height-600, 100, 100); 
-  //image(magicMonkey, 112.5, height-487.5, 75, 75); rect(100, height-500, 100, 100); 
-  //rect(100, height-400, 100, 100);
-  //rect(100, height-300, 100, 100);
-  //fill(255, 10);
-  //rect(100, height-200, 100, 100); image(pineapple, 117.5, height-195, 65, 90);
-  //rect(100, height-100, 100, 100); image(roadSpike, 110, height-87.5, 80, 75);
+  rect(0, 0, 150, 900);
+  rect(37.5, height-600, 75, 75); image(dartMonkey, 50, height-587.5, 50, 50);
+  rect(37.5, height-500, 75, 75); image(bombTower, 55, height-487.5, 40, 50);
+  rect(37.5, height-400, 75, 75); image(ninjaMonkey, 50, height-387.5, 50, 50);
+  rect(37.5, height-300, 75, 75); image(freezeTower, 51.5, height-287.5, 47, 50);
+  rect(37.5, height-200, 75, 75); image(sniperMonkey, 60, height-187.5, 30, 50);
+  rect(37.5, height-100, 75, 75); image(superMonkey, 50, height-87.5, 50, 50);
 }
 
 void updateScreen(){

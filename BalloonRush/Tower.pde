@@ -1,7 +1,7 @@
 class Tower{
    
   private int w, h, cost, range;
-  private float atkSpeed, xcor, ycor;
+  private float atkSpeed, currentX, currentY;
   private Projectile ammo;
   private PImage pic;
   
@@ -17,34 +17,44 @@ class Tower{
   }
     
   void shoot(){};
+  
   void setPosition(float x, float y){
-    xcor = x;
-    ycor = y;
+    currentX = x;
+    currentY = y;
   }
+  
   PImage getPic() {
     return pic;
   }
+  
   int getCost(){
     return cost;
   }
+  
   float getX(){
-    return xcor;
+    return currentX;
   }
+  
   float getY(){
-    return ycor;
+    return currentY;
   }
+  
   int getWidth(){
     return w;
   }
+  
   int getHeight(){
     return h;
   }
+  
   int getRange(){
     return range;
   }
+  
   void display(){
     image(pic, (50 - w)/2 + currentX, currentY, w, h);
   }
+  
   void update(){
     
   }

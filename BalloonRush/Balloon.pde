@@ -1,12 +1,17 @@
 class Balloon{
  
-  private float velocity, currentX, currentY;
+  private float speed, currentX, currentY, dx, dy;
   private int health;
   private int w, h, spawnPoint;
+  //private PImage redBloon, blueBloon, greenBloon, yellowBloon, pinkBloon, rainbowBloon, ceramicBloon;
+  private PImage pic;
   
   Balloon(int maxHealth){
     health = maxHealth;
-    w = h = 50;
+    w = 30;
+    h = 40;
+    dx = 1;
+    dy = 0;
     spawnPoint = (int)random(3);
     currentX = 200;
     if(spawnPoint == 0){
@@ -18,66 +23,71 @@ class Balloon{
     }
   }
   
-  PImage getPic(){
+  void getImage(){
     if(health == 1){
-      return loadImage("Images/Red_Bloon.png");
+      pic = BalloonRush.redBloon;
     }else if(health == 2){
-      return loadImage("Images/Blue_Bloon.png");
+      pic = BalloonRush.blueBloon;
     }else if(health == 3){
-      return loadImage("Images/Green_Bloon.png");
+      pic = BalloonRush.greenBloon;
     }else if(health == 4){
-      return loadImage("Images/Yellow_Bloon.png");
+      pic = BalloonRush.yellowBloon;
     }else if(health == 5){
-      return loadImage("Images/Pink_Bloon.png");
+      pic = BalloonRush.pinkBloon;
     }else if(health == 10){
-      return loadImage("Images/Rainbow_Bloon.png");
+      pic = BalloonRush.rainbowBloon;
     }else if(health == 20){
-      return loadImage("Images/Ceramic_Bloon_2.png");
+      pic = BalloonRush.ceramicBloon;
     }else if(health == 100){
-      return loadImage("Images/MOAB_2.png");
+      pic = loadImage("Images/MOAB_2.png");
     }
-    return null;
   }
   
-  int getWidth(){
-    return w;
-  }
-  
-  int getHeight(){
-    return h;
-  }
-  
-  float getSpeed(){
+  void getSpeed(){
     if(health == 1){
-      return 1;
+      speed = 1;
     }else if(health == 2){
-      return 2;
+      speed = 2;
     }else if(health == 3){
-      return 5;
+      speed = 5;
     }else if(health == 4){
-      return 10;
+      speed = 10;
     }else if(health == 5){
-      return 15;
+      speed = 15;
     }else if(health == 10){
-      return 12.5;
+      speed = 12.5;
     }else if(health == 20){
-      return 7.5;
+      speed = 7.5;
     }else if(health == 100){
-      return 1;
+      speed = 1;
     }
-    return 0;
+  }
+  
+  int getHealth(){
+    return health;
   }
   
   float getX(){
     return currentX;
   }
   
-  float getY(){
-    return currentY;
+  void display(){
+    getImage();
+    image(pic, (50 - w)/2 + currentX, (50 - h)/2 + currentY, w, h);
   }
   
-  int getHealth(){
-    return health;
+  void update(){
+    getSpeed();
+    if(currentX > 1100 || currentX <= 150){
+      //moveDown();
+      //moveUp();
+      //moveRight();
+      //moveLeft();
+      //dx = -dx;
+      //dy = -dy;
+    }
+    currentX += dx * speed;
+    currentY += dy * speed;
   }
   
   void setX(float x){
@@ -90,5 +100,25 @@ class Balloon{
   
   void setHealth(int health){
     this.health = health;
+  }
+  
+  void moveDown(){
+    dx = 0;
+    dy = 1;
+  }
+  
+  void moveUp(){
+    dx = 0;
+    dy = -1;
+  }
+  
+  void moveLeft(){
+    dx = -1;
+    dy = 0;
+  }
+  
+  void moveRight(){
+    dx = 1;
+    dy = 0;
   }
 }

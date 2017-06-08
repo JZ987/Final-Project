@@ -1,14 +1,18 @@
 class BombTower extends Tower{
-  
-  public static final String image = "Images/Bomb_Tower.png";
+  //private float atkSpeed, currentX, currentY;
+  //private int w, h, range, cost;
+  private Projectile ammunition;
+  //private PImage pic;
   
   BombTower(){
-    // int w, int h, int cost, float atkSpeed, float range, Projectile ammo, String m
-    super(40, 50, 1600, 0.75, 200, new Projectile(0), image);
-
-  void shoot() {
+    super(BalloonRush.bombTower, 40, 50, 1600, 200, 0.75, 0, 0);
   }
   
-  void die() {
+  void shoot(){
+    
+  }
+  
+  void die(){
+      
   }
 }

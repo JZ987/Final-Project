@@ -1,15 +1,18 @@
 class FreezeTower extends Tower{
-
-  public static final String image = "Images/Ice_Tower.png";
+  //private float atkSpeed,  currentX, currentY;
+  //private int w, h, range, cost;
+  private Projectile ammunition;
+  //private PImage pic;
   
-  FreezeTower() {
-    // int w, int h, int cost, float atkSpeed, float range, Projectile ammo, String m
-    super(47, 50, 2500, 1, 150, new Projectile(0), image);
+  FreezeTower(){
+    super(BalloonRush.freezeTower, 47, 50, 2500, 150, 1, 0, 0);
   }
   
   void shoot(){
+    
   }
   
-  void die() {
+  void die(){
+      
   }
 }

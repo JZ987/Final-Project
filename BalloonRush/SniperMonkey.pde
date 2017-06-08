@@ -1,15 +1,17 @@
 class SniperMonkey extends Tower{
-
-  public static final String image = "Images/Sniper_Monkey.png";
+  //private float atkSpeed,  currentX, currentY;
+  //private int w, h, range, cost;
+  private Projectile ammunition;
+  //private PImage sniperMonkey;
   
-  SniperMonkey(){
-    // int w, int h, int cost, float atkSpeed, float range, Projectile ammo, String m
-    super(30, 50, 1200, 0.75, 0, new Projectile(0), image);
+  SniperMonkey(){   
+    super(BalloonRush.sniperMonkey, 30, 50, 1200, 0, 075, 0, 0);
   }
   
   void shoot(){
   }
   
   void die(){
+    
   }
 }

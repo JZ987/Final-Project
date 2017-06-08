@@ -1,22 +1,22 @@
-abstract class Tower{
+class Tower{
    
   private int w, h, cost, range;
   private float atkSpeed, xcor, ycor;
   private Projectile ammo;
   private PImage pic;
   
-  Tower(int w, int h, int cost, float atkSpeed, float range, Projectile ammo, String m) {
+  Tower(PImage pic, int w, int h, int cost, int range, float atkSpeed, float currentX, float currentY){
+    this.pic = pic;
     this.w = w;
     this.h = h;
     this.cost = cost;
+    this.range = range;
     this.atkSpeed = atkSpeed;
-    this.ammo = ammo;
-    pic = loadImage(m);
+    this.currentX = currentX;
+    this.currentY = currentY;
   }
-
-  abstract void shoot();
-  abstract void die();
-  
+    
+  void shoot(){};
   void setPosition(float x, float y){
     xcor = x;
     ycor = y;
@@ -41,5 +41,11 @@ abstract class Tower{
   }
   int getRange(){
     return range;
+  }
+  void display(){
+    image(pic, (50 - w)/2 + currentX, currentY, w, h);
+  }
+  void update(){
+    
   }
 }

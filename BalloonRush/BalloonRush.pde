@@ -1,3 +1,7 @@
+<<<<<<< Updated upstream
+=======
+static PImage currentPic, titleScreen, desktopMap1, desktopMap2, jungleMap1, donut, dartMonkey, ninjaMonkey, superMonkey, bombTower, freezeTower, sniperMonkey, redBloon, blueBloon, greenBloon, yellowBloon, pinkBloon, rainbowBloon, ceramicBloon;;
+>>>>>>> Stashed changes
 boolean dartMonkeyOver, ninjaMonkeyOver, superMonkeyOver, bombTowerOver, freezeTowerOver, sniperMonkeyOver, boomerangMonkeyOver, magicMonkeyOver, pineappleOver, roadSpikeOver = false;
 ArrayList<Balloon> balloons;
 ArrayList<Tower> towers;
@@ -56,6 +60,31 @@ void mousePressed(){
   }
 }
 
+<<<<<<< Updated upstream
+=======
+
+//Convert png to svg
+void loadImages(){
+  desktopMap1 = loadImage("Images/Desktop1.jpg");
+  desktopMap2 = loadImage("Images/Desktop2.jpeg");
+  jungleMap1 = loadImage("Images/JungleMap.jpg");
+  dartMonkey = loadImage("Images/Dart_Monkey.png");
+  ninjaMonkey = loadImage("Images/Ninja_Monkey.png");
+  superMonkey = loadImage("Images/Super_Monkey.png");
+  bombTower = loadImage("Images/Bomb_Tower.png");
+  freezeTower = loadImage("Images/Ice_Tower.png");
+  sniperMonkey = loadImage("Images/Sniper_Monkey.png");
+  donut = loadImage("Images/DonutFull.jpg");
+  redBloon = loadImage("Images/Red_Bloon.png");
+  blueBloon = loadImage("Images/Blue_Bloon.png");
+  greenBloon = loadImage("Images/Green_Bloon.png");
+  yellowBloon = loadImage("Images/Yellow_Bloon.png");
+  pinkBloon = loadImage("Images/Pink_Bloon.png");
+  rainbowBloon = loadImage("Images/Rainbow_Bloon.png");
+  ceramicBloon = loadImage("Images/Ceramic_Bloon_2.png");
+}
+
+>>>>>>> Stashed changes
 void initialize(){
   currentMap = new Map();
   balloons = new ArrayList<Balloon>();
@@ -101,21 +130,20 @@ void updateScreen(){
   
   //Update objects
   for(Tower t : towers){
-    //println("row : " + t.getX() + "col : " + t.getY());
-    image(t.getPic(), (50 - t.getWidth())/2 + t.getX(), t.getY(), t.getWidth(), t.getHeight()); 
+    t.display();
   }
   for(Projectile p : projectiles){
     image(p.getPic(), p.getX(), p.getY(), p.getWidth(), p.getHeight());
   }
   for(Balloon b : balloons){
-    if(b.getX() > 1300){
-      //balloons.remove(b);
+    if(b.getHealth() <= 0 || b.getX() > 1300){
       b = null;
     }else{
-      image(b.getPic(), b.getX(), b.getY(), b.getWidth(), b.getHeight());
-      b.setX(b.getSpeed());
-      //b.setY(b.getSpeed());
+      b.update();
+      b.display();
     }
+    //b.setX(b.getSpeed());
+    //b.setY(b.getSpeed());
   }
   
   //Update text boxes
@@ -159,4 +187,24 @@ String overWhich(){
     return "Super Monkey";
   }
   return "";
+}
+
+PImage getPic(String name){
+  if(name.equals("redBloon")){
+    return redBloon;
+  }else if(name.equals("blueBloon")){
+    return blueBloon;
+  }else if(name.equals("greenBloon")){
+    return greenBloon;
+  }else if(name.equals("yellowBloon")){
+    return yellowBloon;
+  }else if(name.equals("pinkBloon")){
+    return pinkBloon;
+  }else if(name.equals("rainbowBloon")){
+    return rainbowBloon;
+  }else if(name.equals("ceramicBloon")){
+    return ceramicBloon;
+  }else{
+    return donut;
+  }
 }

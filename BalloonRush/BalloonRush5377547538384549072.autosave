@@ -1,17 +1,15 @@
-static PImage currentPic, titleScreen, desktopMap1, desktopMap2, jungleMap1, donut, dartMonkey, ninjaMonkey, superMonkey, bombTower, freezeTower, sniperMonkey, redBloon, blueBloon, greenBloon, yellowBloon, pinkBloon, rainbowBloon, ceramicBloon;
 boolean dartMonkeyOver, ninjaMonkeyOver, superMonkeyOver, bombTowerOver, freezeTowerOver, sniperMonkeyOver, boomerangMonkeyOver, magicMonkeyOver, pineappleOver, roadSpikeOver = false;
 ArrayList<Balloon> balloons;
 ArrayList<Tower> towers;
 ArrayList<Projectile> projectiles;
 Tower currentTower;
-public static Map currentMap;
+Map currentMap;
 int currency;
 
 void setup(){
-  size(1000, 600);
-  loadImages();
+  size(1500, 900);
+  currentMap = new DesktopMap2();
   initialize();
-  currentMap.setupGrid();
   addLayout();
   loadPixels();
 }
@@ -27,7 +25,7 @@ void draw(){
     image(currentTower.getPic(), (50-currentTower.getWidth())/2 + mouseX-25, mouseY-25, currentTower.getWidth(), currentTower.getHeight());
     noFill();
   }
-  //println(frameRate);
+  println(frameRate);
 }
 
 void mousePressed(){
@@ -36,11 +34,10 @@ void mousePressed(){
       currentTower = null;
     }else if(currency >= currentTower.getCost()){
       //currentMap.addTower((int)mouseX/50, (int)mouseY/50, currentTower);
-      currentTower.setTile(currentMap.getTile(mouseX, mouseY));
+      currentTower.setPosition(((int)mouseX/50)*50, ((int)mouseY/50)*50);
       towers.add(currentTower);
       currency -= currentTower.getCost();
       currentTower = null;
-      solve()
     }
   }else if(dartMonkeyOver){
     currentTower = new DartMonkey();
@@ -59,29 +56,8 @@ void mousePressed(){
   }
 }
 
-//Convert png to svg
-void loadImages(){
-  desktopMap1 = loadImage("Images/Desktop1.jpg");
-  desktopMap2 = loadImage("Images/Desktop2.jpeg");
-  jungleMap1 = loadImage("Images/JungleMap.jpg");
-  dartMonkey = loadImage("Images/Dart_Monkey.png");
-  ninjaMonkey = loadImage("Images/Ninja_Monkey.png");
-  superMonkey = loadImage("Images/Super_Monkey.png");
-  bombTower = loadImage("Images/Bomb_Tower.png");
-  freezeTower = loadImage("Images/Ice_Tower.png");
-  sniperMonkey = loadImage("Images/Sniper_Monkey.png");
-  donut = loadImage("Images/DonutFull.jpg");
-  redBloon = loadImage("Images/Red_Bloon.png");
-  blueBloon = loadImage("Images/Blue_Bloon.png");
-  greenBloon = loadImage("Images/Green_Bloon.png");
-  yellowBloon = loadImage("Images/Yellow_Bloon.png");
-  pinkBloon = loadImage("Images/Pink_Bloon.png");
-  rainbowBloon = loadImage("Images/Rainbow_Bloon.png");
-  ceramicBloon = loadImage("Images/Ceramic_Bloon_2.png");
-}
-
 void initialize(){
-  currentMap = new Map(2);
+  currentMap = new Map();
   balloons = new ArrayList<Balloon>();
   towers = new ArrayList<Tower>();
   projectiles = new ArrayList<Projectile>();
@@ -89,7 +65,7 @@ void initialize(){
 }
 
 void addLayout(){
-  image(desktopMap2, 0, 0, width, height);
+  image(currentMap.getImage(), 0, 0, width, height);
   stroke(126);
   for(float i = 0; i < height; i+=50){
     line(150, i, width, i);
@@ -98,14 +74,22 @@ void addLayout(){
     line(i, 0, i, height);
   }
   fill(255, 50);
-  rect(0, 0, 150, 900);
-  rect(37.5, height-600, 75, 75); image(dartMonkey, 50, height-587.5, 50, 50);
-  rect(37.5, height-500, 75, 75); image(bombTower, 55, height-487.5, 40, 50);
-  rect(37.5, height-400, 75, 75); image(ninjaMonkey, 50, height-387.5, 50, 50);
-  rect(37.5, height-300, 75, 75); image(freezeTower, 51.5, height-287.5, 47, 50);
-  rect(37.5, height-200, 75, 75); image(sniperMonkey, 60, height-187.5, 30, 50);
-  rect(37.5, height-100, 75, 75); image(superMonkey, 50, height-87.5, 50, 50);
-}
+  rect(0, 0, 200, 900);
+  rect(0, height-600, 100, 100); image(loadImage(DartMonkey.image), 12.5, height-587.5, 75, 75);
+  rect(0, height-500, 100, 100); image(loadImage(BombTower.image), 20, height-487.5, 60, 75);
+  rect(0, height-400, 100, 100); image(loadImage(NinjaMonkey.image), 12.5, height-387.5, 75, 75);
+  rect(0, height-300, 100, 100); image(loadImage(FreezeTower.image), 15, height-287.5, 70, 75);
+  rect(0, height-200, 100, 100); image(loadImage(SniperMonkey.image), 22.5, height-195, 55, 90);
+  rect(0, height-100, 100, 100); image(loadImage(SuperMonkey.image), 12.5, height-87.5, 75, 75);
+  //fill(0, 150);
+  //image(boomerangMonkey, 120, height-595, 60, 90); rect(100, height-600, 100, 100); 
+  //image(magicMonkey, 112.5, height-487.5, 75, 75); rect(100, height-500, 100, 100); 
+  //rect(100, height-400, 100, 100);
+  //rect(100, height-300, 100, 100);
+  //fill(255, 10);
+  //rect(100, height-200, 100, 100); image(pineapple, 117.5, height-195, 65, 90);
+  //rect(100, height-100, 100, 100); image(roadSpike, 110, height-87.5, 80, 75);
+}g
 
 void updateScreen(){
   //Update currency  
@@ -117,20 +101,21 @@ void updateScreen(){
   
   //Update objects
   for(Tower t : towers){
-    t.display();
+    //println("row : " + t.getX() + "col : " + t.getY());
+    image(t.getPic(), (50 - t.getWidth())/2 + t.getX(), t.getY(), t.getWidth(), t.getHeight()); 
   }
   for(Projectile p : projectiles){
     image(p.getPic(), p.getX(), p.getY(), p.getWidth(), p.getHeight());
   }
   for(Balloon b : balloons){
-    if(b.getHealth() <= 0 || b.getX() > 1300){
+    if(b.getX() > 1300){
+      //balloons.remove(b);
       b = null;
     }else{
-      b.update();
-      b.display();
+      image(b.getPic(), b.getX(), b.getY(), b.getWidth(), b.getHeight());
+      b.setX(b.getSpeed());
+      //b.setY(b.getSpeed());
     }
-    //b.setX(b.getSpeed());
-    //b.setY(b.getSpeed());
   }
   
   //Update text boxes
@@ -174,24 +159,4 @@ String overWhich(){
     return "Super Monkey";
   }
   return "";
-}
-
-PImage getPic(String name){
-  if(name.equals("redBloon")){
-    return redBloon;
-  }else if(name.equals("blueBloon")){
-    return blueBloon;
-  }else if(name.equals("greenBloon")){
-    return greenBloon;
-  }else if(name.equals("yellowBloon")){
-    return yellowBloon;
-  }else if(name.equals("pinkBloon")){
-    return pinkBloon;
-  }else if(name.equals("rainbowBloon")){
-    return rainbowBloon;
-  }else if(name.equals("ceramicBloon")){
-    return ceramicBloon;
-  }else{
-    return donut;
-  }
 }

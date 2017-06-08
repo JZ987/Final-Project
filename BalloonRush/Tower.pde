@@ -4,6 +4,7 @@ class Tower{
   private float atkSpeed, currentX, currentY;
   private Projectile ammo;
   private PImage pic;
+  private Tile tile;
   
   Tower(PImage pic, int w, int h, int cost, int range, float atkSpeed, float currentX, float currentY){
     this.pic = pic;
@@ -18,9 +19,11 @@ class Tower{
     
   void shoot(){};
   
-  void setPosition(float x, float y){
-    currentX = x;
-    currentY = y;
+  void setTile(Tile t){
+    tile = t;
+    t.tower = this;
+    currentX = t.getX();
+    currentY = t.getY();
   }
   
   PImage getPic() {

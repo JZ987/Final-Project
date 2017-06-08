@@ -1,10 +1,10 @@
 class Balloon{
  
-  private float speed, currentX, currentY, dx, dy;
-  private int health;
-  private int w, h, spawnPoint;
+  private float speed, dx, dy;
+  private int health, w, h, spawnPoint, xcor, ycor;
   //private PImage redBloon, blueBloon, greenBloon, yellowBloon, pinkBloon, rainbowBloon, ceramicBloon;
   private PImage pic;
+  private Tile currTile;
   
   Balloon(int maxHealth){
     health = maxHealth;
@@ -12,15 +12,17 @@ class Balloon{
     h = 40;
     dx = 1;
     dy = 0;
-    spawnPoint = (int)random(3);
-    currentX = 200;
-    if(spawnPoint == 0){
-      currentY = 100;
-    }else if(spawnPoint == 1){
-      currentY = 500;
-    }else if(spawnPoint == 2){
-      currentY = 800;
-    }
+    //spawnPoint = (int)random(3);
+    xcor = 150;
+    ycor = currentMap.getStartRow()*50;
+    currTile = currentMap.getTile(xcor,ycor);
+//    if(spawnPoint == 0){
+//      ycor = 100;
+//    }else if(spawnPoint == 1){
+//      ycor = 500;
+//    }else if(spawnPoint == 2){
+//      ycor = 800;
+//    }
   }
   
   void getImage(){
@@ -68,17 +70,17 @@ class Balloon{
   }
   
   float getX(){
-    return currentX;
+    return xcor;
   }
   
   void display(){
     getImage();
-    image(pic, (50 - w)/2 + currentX, (50 - h)/2 + currentY, w, h);
+    image(pic, (50 - w)/2 + xcor, (50 - h)/2 + ycor, w, h);
   }
   
   void update(){
     getSpeed();
-    if(currentX > 1100 || currentX <= 150){
+    if(xcor > 1100 || xcor <= 150){
       //moveDown();
       //moveUp();
       //moveRight();
@@ -86,16 +88,16 @@ class Balloon{
       //dx = -dx;
       //dy = -dy;
     }
-    currentX += dx * speed;
-    currentY += dy * speed;
+    xcor += dx * speed;
+    ycor += dy * speed;
   }
   
   void setX(float x){
-    currentX += x;
+    xcor += x;
   }
   
   void setY(float y){
-    currentY += y;
+    ycor += y;
   }
   
   void setHealth(int health){

@@ -30,7 +30,7 @@ class Projectile{
       float minDistance = distanceVect.mag();
       if(minDistance < 25){
         b.health -= 1;
-        BalloonRush.currency++;
+        BalloonRush.currency+=3;
         return true;
       }
     }

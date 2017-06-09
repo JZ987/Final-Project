@@ -43,8 +43,8 @@ class Tower{
     translate(position.x, position.y);
     //println(degrees(angle)+90);
     rotate(angle);
-    noFill();
-    ellipse(0, 0, range*2, range*2);
+    //noFill();
+    //ellipse(0, 0, range*2, range*2);
     image(pic, -w/2, -h/2, w, h);
     popMatrix();
     //image(pic, (50 - w)/2 + currentX, currentY, w, h);

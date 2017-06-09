@@ -1,14 +1,17 @@
 class SniperMonkey extends Tower{
-  //private float atkSpeed,  currentX, currentY;
-  //private int w, h, range, cost;
-  private Projectile ammunition;
-  //private PImage sniperMonkey;
   
   SniperMonkey(){   
-    super(BalloonRush.sniperMonkey, 30, 50, 1200, 0, 0.75);
+    super(BalloonRush.sniperMonkey, 30, 50, 1200, width*2, 45);
   }
   
-  void die(){
-    
+  void shoot(PVector target){
+    if(count%atkSpeed == 0){
+      if(BalloonRush.balloons.size() != 0){
+        BalloonRush.balloons.get(0).health--;
+        BalloonRush.currency++;
+      }
+      count++;
+    }
+    count++;
   }
 }

@@ -1,25 +1,23 @@
 class Balloon{
 
-  private float speed, dx, dy;
-  private int health, w, h, spawnPoint, xcor, ycor;
-  //private PImage redBloon, blueBloon, greenBloon, yellowBloon, pinkBloon, rainbowBloon, ceramicBloon;
-  private PImage pic;
-  private Tile currTile, nextTile;
-  private Direction d;
-  private int distanceTraveled;
+  float speed, dx, dy;
+  int health, w, h, xcor, ycor;
+  PImage pic;
+  Tile currTile, nextTile;
+  Direction d;
 
   Balloon(int maxHealth){
     health = maxHealth;
     w = 30;
     h = 40;
-    dx = 1;
+    dx = 0;
     dy = 0;
     xcor = 150;
     ycor = currentMap.getStartRow()*50;
     currTile = currentMap.getTile(xcor,ycor);
     d = currentMap.getNextDirection(currTile, null);
     nextTile = currentMap.getNextTile(currTile, null);
-    switch (d) {
+    switch (d){
       case NORTH:
         moveUp();
         break;
@@ -34,16 +32,7 @@ class Balloon{
         break;
       default:
         println("this should not be reached");
-
     }
-
-    //    if(spawnPoint == 0){
-    //      ycor = 100;
-    //    }else if(spawnPoint == 1){
-    //      ycor = 500;
-    //    }else if(spawnPoint == 2){
-    //      ycor = 800;
-    //    }
   }
 
   void getImage(){
@@ -68,30 +57,22 @@ class Balloon{
 
   void getSpeed(){
     if(health == 1){
-      speed = 1;
+      speed = 1.5;
     }else if(health == 2){
-      speed = 2;
+      speed = 2.5;
     }else if(health == 3){
-      speed = 5;
+      speed = 3.5;
     }else if(health == 4){
-      speed = 10;
+      speed = 4;
     }else if(health == 5){
-      speed = 15;
+      speed = 5;
     }else if(health == 10){
-      speed = 12.5;
+      speed = 5;
     }else if(health == 20){
-      speed = 7.5;
+      speed = 3;
     }else if(health == 100){
       speed = 1;
     }
-  }
-
-  int getHealth(){
-    return health;
-  }
-
-  float getX(){
-    return xcor;
   }
 
   void display(){
@@ -130,18 +111,6 @@ class Balloon{
     ycor += dy * speed;
   }
 
-  void setX(float x){
-    xcor += x;
-  }
-
-  void setY(float y){
-    ycor += y;
-  }
-
-  void setHealth(int health){
-    this.health = health;
-  }
-
   void moveDown(){
     dx = 0;
     dy = 1;
@@ -163,6 +132,6 @@ class Balloon{
   }
   
   boolean shouldDie(){
-    return health <= 0 || xcor > 900 || xcor < 0 || ycor > 900 || ycor < 0;
+    return health <= 0 || xcor > width || xcor < 0 || ycor > height || ycor < 0;
   }
 }

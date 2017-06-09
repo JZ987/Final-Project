@@ -52,7 +52,7 @@ class MazeSolver {
         println("FINDING PATH");
         findPath(current);
         println("DONE");
-        currentMap.printGrid();
+        //currentMap.printGrid();
     }
 
     private void findPath(Location l) {

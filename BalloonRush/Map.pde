@@ -7,7 +7,7 @@ class Map {
   PImage map;
   int rows = height/50;
   int  cols = (width-150)/50;
-  int startRow = rows/2;
+  int startRow = rows-3;
   Tile[][] grid;
   Tile startTile, endTile;
 
@@ -16,13 +16,13 @@ class Map {
     if(index == 0){
       map = loadImage("Images/Desktop1.jpg");
     } else if(index == 1){
-      map = loadImage("Images/Desktop2.jpg");
+      map = loadImage("Images/Desktop2.jpeg");
     } else if(index == 2){
       map = loadImage("Images/JungleMap.jpg");
     }
     setupGrid();
     startTile = getTileRC(startRow, 0);
-    endTile = getTileRC(startRow, cols-1);
+    endTile = getTileRC(0, cols-1);
   }
 
   void printGrid() {

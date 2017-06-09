@@ -10,13 +10,12 @@ public static Map currentMap;
 MazeSolver solver;
 
 void setup(){
-  solver = new MazeSolver();
-  size(1000, 600);
+  size(1500, 900);
   loadImages();
   initialize();
   addLayout();
   this.loadPixels();
-  println("Solving maze");
+  //println("Solving maze");
   solver.solve();
 }
 
@@ -60,8 +59,12 @@ void mousePressed(){
   }else if(superMonkeyOver){
     currentTower = new SuperMonkey();
   }else{
-    balloons.add(new Balloon((int)random(1, 5)));
+    balloons.add(new Balloon((int)random(1, 6)));
   }
+}
+
+void keyPressed(){
+  balloons.add(new Balloon((int)random(1, 6)));
 }
 
 void loadImages(){
@@ -85,15 +88,16 @@ void loadImages(){
 }
 
 void initialize(){
-  currentMap = new Map(2);
+  solver = new MazeSolver();
+  currentMap = new Map(1);
   balloons = new ArrayList<Balloon>();
   towers = new ArrayList<Tower>();
   projectiles = new ArrayList<Projectile>();
-  currency = 3200;
+  currency = 3000;
 }
 
 void addLayout(){
-  image(desktopMap2, 0, 0, width, height);
+  image(currentMap.map, 0, 0, width, height);
   stroke(126);
   for(float i = 0; i < height; i+=50){
     line(150, i, width, i);
@@ -187,34 +191,3 @@ String overWhich(){
   }
   return "";
 }
-
-PImage getPic(String name){
-  if(name.equals("redBloon")){
-    return redBloon;
-  }else if(name.equals("blueBloon")){
-    return blueBloon;
-  }else if(name.equals("greenBloon")){
-    return greenBloon;
-  }else if(name.equals("yellowBloon")){
-    return yellowBloon;
-  }else if(name.equals("pinkBloon")){
-    return pinkBloon;
-  }else if(name.equals("rainbowBloon")){
-    return rainbowBloon;
-  }else if(name.equals("ceramicBloon")){
-    return ceramicBloon;
-  }else{
-    return donut;
-  }
-}
-
-/*
-void checkCollision(Object one, Object two){
-  PVector distanceVect = PVector.sub(other.position, this.position);
-  float distanceVectMag = distanceVect.mag();
-  //println(distanceVectMag);
-  float minDistance = this.range;
-  if(distanceVectMag < minDistance){
-    angle = distanceVect.heading() + PI/2;
-  }
-}*/

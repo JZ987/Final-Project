@@ -14,7 +14,7 @@ class Tower{
     this.h = h;
     this.cost = cost;
     this.range = range/2;
-    this.atkSpeed = 0;
+    this.atkSpeed = atkSpeed;
     count = 0;
   }
     

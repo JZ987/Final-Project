@@ -5,6 +5,8 @@ class Tower{
   Projectile ammo;
   PImage pic;
   PVector position;
+  float currentX, currentY;
+  private Tile tile;
   
   Tower(PImage pic, int w, int h, int cost, int range, float atkSpeed){
     this.pic = pic;
@@ -12,7 +14,7 @@ class Tower{
     this.h = h;
     this.cost = cost;
     this.range = range/2;
-    this.atkSpeed = atkSpeed;
+    this.atkSpeed = 0;
     count = 0;
   }
     
@@ -22,6 +24,13 @@ class Tower{
       count++;
     }
     count++;
+  }
+  
+  void setTile(Tile t){
+    tile = t;
+    t.tower = this;
+    currentX = t.getX();
+    currentY = t.getY();
   }
   
   void setPosition(float x, float y){
@@ -54,7 +63,7 @@ class Tower{
   }
   
   void checkCollision(Balloon other){
-    PVector distanceVect = PVector.sub(other.position, this.position);
+    PVector distanceVect = PVector.sub(new PVector(other.xcor, other.ycor), this.position);
     float distanceVectMag = distanceVect.mag();
     //println(distanceVectMag);
     float minDistance = this.range;

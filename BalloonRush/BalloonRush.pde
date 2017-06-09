@@ -4,16 +4,20 @@ static ArrayList<Balloon> balloons;
 static ArrayList<Tower> towers;
 static ArrayList<Projectile> projectiles;
 Tower currentTower;
-Map currentMap;
 static int currency;
 float angle;
+public static Map currentMap;
+MazeSolver solver;
 
 void setup(){
-  size(1500, 900);
+  solver = new MazeSolver();
+  size(1000, 600);
   loadImages();
   initialize();
   addLayout();
   this.loadPixels();
+  println("Solving maze");
+  solver.solve();
 }
 
 void draw(){
@@ -36,10 +40,12 @@ void mousePressed(){
       currentTower = null;
     }else if(currency >= currentTower.cost){
       //currentMap.addTower((int)mouseX/50, (int)mouseY/50, currentTower);
+      currentTower.setTile(currentMap.getTile(mouseX, mouseY));
       currentTower.setPosition(((int)mouseX/50)*50, ((int)mouseY/50)*50);
       towers.add(currentTower);
       currency -= currentTower.cost;
       currentTower = null;
+      solver.solve();
     }
   }else if(dartMonkeyOver){
     currentTower = new DartMonkey();
@@ -54,7 +60,7 @@ void mousePressed(){
   }else if(superMonkeyOver){
     currentTower = new SuperMonkey();
   }else{
-    balloons.add(new Balloon((int)random(1, 6)));
+    balloons.add(new Balloon((int)random(1, 5)));
   }
 }
 
@@ -79,7 +85,7 @@ void loadImages(){
 }
 
 void initialize(){
-  currentMap = new DesktopMap2();
+  currentMap = new Map(2);
   balloons = new ArrayList<Balloon>();
   towers = new ArrayList<Tower>();
   projectiles = new ArrayList<Projectile>();

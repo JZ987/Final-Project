@@ -26,7 +26,7 @@ class Projectile{
   
   boolean checkCollision(){
     for(Balloon b : BalloonRush.balloons){
-      PVector distanceVect = PVector.sub(b.position, currentPos);
+      PVector distanceVect = PVector.sub(new PVector(b.xcor, b.ycor), currentPos);
       float minDistance = distanceVect.mag();
       if(minDistance < 25){
         b.health -= 1;

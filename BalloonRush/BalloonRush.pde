@@ -6,14 +6,17 @@ ArrayList<Projectile> projectiles;
 Tower currentTower;
 public static Map currentMap;
 int currency;
+MazeSolver solver;
 
 void setup(){
+  solver = new MazeSolver();
   size(1000, 600);
   loadImages();
   initialize();
-  currentMap.setupGrid();
   addLayout();
   loadPixels();
+  println("Solving maze");
+  solver.solve();
 }
 
 void draw(){
@@ -40,7 +43,7 @@ void mousePressed(){
       towers.add(currentTower);
       currency -= currentTower.getCost();
       currentTower = null;
-      solve()
+      solver.solve();
     }
   }else if(dartMonkeyOver){
     currentTower = new DartMonkey();

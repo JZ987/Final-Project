@@ -9,6 +9,8 @@ float angle;
 public static Map currentMap;
 MazeSolver solver;
 
+static int health = 100;
+
 int difficulty;
 int MAX_DIFFICULTY = 4;
 int[] spawnRates = new int[]{100, 50, 30, 20, 10};
@@ -134,8 +136,9 @@ void updateScreen(){
   textSize(30);
   fill(238,255,8);
   textAlign(CENTER);
-  text(currency, 75, 50);
-  text(balloons.size(), 75, 100);
+  text("$" + currency, 75, 50);
+  text(balloons.size() + " balloons", 75, 100);
+  text("Health: " + health, 75, 150);
   
   //Update objects
   for(Tower t : towers){

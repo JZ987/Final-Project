@@ -87,6 +87,7 @@ class Balloon{
       return;
     }
     if (currTile.isSameTile(currentMap.endTile)) {
+      BalloonRush.health -= health;
       health = 0;
       return;
     }

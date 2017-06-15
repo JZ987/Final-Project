@@ -137,8 +137,8 @@ void updateScreen(){
   fill(238,255,8);
   textAlign(CENTER);
   text("$" + currency, 75, 50);
-  text(balloons.size() + " balloons", 75, 100);
-  text("Health: " + health, 75, 150);
+  text(balloons.size(), 75, 100);
+  text(health + " lives", 75, 150);
   
   //Update objects
   for(Tower t : towers){

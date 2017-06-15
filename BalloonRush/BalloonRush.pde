@@ -9,12 +9,17 @@ float angle;
 public static Map currentMap;
 MazeSolver solver;
 
+int difficulty;
+int MAX_DIFFICULTY = 4;
+int[] spawnRates = new int[]{100, 50, 30, 20, 10};
+
 void setup(){
   size(1500, 900);
   loadImages();
   initialize();
   addLayout();
   this.loadPixels();
+  difficulty = 0;
   //println("Solving maze");
   solver.solve();
 }
@@ -24,6 +29,13 @@ void draw(){
   updateScreen();
   update(mouseX, mouseY);
   //currency+=10;
+  if (frameCount % spawnRates[difficulty] == 0 && frameCount > 0) {
+    balloons.add(new Balloon((int)random(1, difficulty+2)));
+  }
+  if (frameCount % 1000 == 0 && difficulty < MAX_DIFFICULTY) {
+    difficulty++;
+    println("Difficulty: " + difficulty);
+  }
   if(currentTower != null){
     fill(0, 100);
     ellipse(mouseX, mouseY, currentTower.range*2, currentTower.range*2);
@@ -63,13 +75,7 @@ void mousePressed(){
     currentTower = new SniperMonkey();
   }else if(superMonkeyOver){
     currentTower = new SuperMonkey();
-  }else{
-    balloons.add(new Balloon((int)random(1, 6)));
   }
-}
-
-void keyPressed(){
-  balloons.add(new Balloon((int)random(1, 6)));
 }
 
 void loadImages(){

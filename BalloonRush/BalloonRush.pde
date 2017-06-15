@@ -39,12 +39,17 @@ void mousePressed(){
       currentTower = null;
     }else if(currency >= currentTower.cost){
       //currentMap.addTower((int)mouseX/50, (int)mouseY/50, currentTower);
-      currentTower.setTile(currentMap.getTile(mouseX, mouseY));
+      Tile currTile = currentMap.getTile(mouseX, mouseY);
+      currentTower.setTile(currTile);
       currentTower.setPosition(((int)mouseX/50)*50, ((int)mouseY/50)*50);
-      towers.add(currentTower);
-      currency -= currentTower.cost;
-      currentTower = null;
-      solver.solve();
+      if (solver.solve()) {
+        towers.add(currentTower);
+        currency -= currentTower.cost;
+        currentTower = null;
+      } else {
+        currTile.setTower(null);
+        println("Cannot place tower there");
+      }
     }
   }else if(dartMonkeyOver){
     currentTower = new DartMonkey();

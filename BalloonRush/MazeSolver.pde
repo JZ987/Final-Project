@@ -16,12 +16,17 @@ class MazeSolver {
         }
     }
 
-   void solve() {
+   boolean solve() {
         visited = new boolean[currentMap.rows][currentMap.cols];
-        currentMap.clearBooleans();
         PriorityQueue<Location> starQueue = new PriorityQueue<Location>();
         Location current = new Location(currentMap.startTile, null);
-        while (!current.tile.isSameTile(currentMap.endTile)) {
+        while (true) {
+            if (current == null) {
+               return false; 
+            }
+            if (current.tile.isSameTile(currentMap.endTile)) {
+               break;
+            }
             if (current.tile.hasTower() || visited[current.tile.row][current.tile.col]) {
               current = starQueue.peek();
               starQueue.remove(current);
@@ -48,11 +53,11 @@ class MazeSolver {
                 }
             }
         }
+        currentMap.clearBooleans();
         currentMap.endTile.isPath = true;
-        println("FINDING PATH");
         findPath(current);
-        println("DONE");
         //currentMap.printGrid();
+        return true;
     }
 
     private void findPath(Location l) {

@@ -7,7 +7,7 @@ class Map {
   PImage map;
   int rows = height/50;
   int  cols = (width-150)/50;
-  int startRow = rows-3;
+  int startRow = rows/2;
   Tile[][] grid;
   Tile startTile, endTile;
 
@@ -22,7 +22,7 @@ class Map {
     }
     setupGrid();
     startTile = getTileRC(startRow, 0);
-    endTile = getTileRC(0, cols-1);
+    endTile = getTileRC(startRow, cols-1);
   }
 
   void printGrid() {

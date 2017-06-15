@@ -82,11 +82,14 @@ class Balloon{
 
   void update(){
     getSpeed();
+    currTile = currentMap.getTile(xcor,ycor);
+    if (currTile == null) {
+      return;
+    }
     if (currTile.isSameTile(currentMap.endTile)) {
       health = 0;
       return;
     }
-    currTile = currentMap.getTile(xcor,ycor);
     if (currTile.isSameTile(nextTile) && abs(ycor - currTile.ycor) < 10) {
       nextTile = currentMap.getNextTile(currTile, d);
       d = currentMap.getNextDirection(currTile, d);

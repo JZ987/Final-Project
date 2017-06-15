@@ -52,6 +52,9 @@ void mousePressed(){
     }else if(currency >= currentTower.cost){
       //currentMap.addTower((int)mouseX/50, (int)mouseY/50, currentTower);
       Tile currTile = currentMap.getTile(mouseX, mouseY);
+      if (currTile.tower != null) {
+        return;
+      }
       currentTower.setTile(currTile);
       currentTower.setPosition(((int)mouseX/50)*50, ((int)mouseY/50)*50);
       if (solver.solve()) {
